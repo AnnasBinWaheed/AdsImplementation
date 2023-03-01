@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:background="@drawable/lib_ad_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="55dp"
+        android:layout_height="match_parent"
+        android:background="#FF3700B3"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AD"
+            android:textColor="#FFFFFF"
+            android:textSize="27sp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AD PLACEHOLDER"
+            android:textSize="19sp"
+            android:textColor="#000000"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This Place is Reserved for Ad"
+            android:textSize="17sp"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>
