@@ -3,6 +3,7 @@ package com.annas.admobads
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
@@ -24,6 +25,9 @@ class NativeManager {
 
         @SuppressLint("StaticFieldLeak")
         private lateinit var nativeAdLayout: FrameLayout
+
+        private var nativeAdMainColor: Int = Color.BLUE
+        private var nativeAdBorderColor: Int = Color.BLUE
 
         @SuppressLint("StaticFieldLeak")
         private lateinit var rootLayout: FrameLayout
@@ -54,6 +58,39 @@ class NativeManager {
 
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         super.onAdFailedToLoad(loadAdError)
+                        shimmer_view_container.stopShimmer()
+                        shimmer_view_container.visibility = View.GONE
+                    }
+                })
+                .build()
+            adLoader.loadAd(AdRequest.Builder().build())
+        }
+
+        fun showNativeAds(context: Context,nativeId:String,placeholder:View) {
+            myContext = context
+            shimmer_view_container = (myContext as Activity).findViewById(R.id.shimmer_view_container)
+            val adLoader = AdLoader.Builder(myContext, nativeId)
+                .forNativeAd { nativeAd ->
+                    val nativeAdView = (myContext as Activity).layoutInflater.inflate(R.layout.lib_native_ad_layout, null) as NativeAdView
+                    mapNativeAdToLayout(nativeAd, nativeAdView)
+                    nativeAdLayout = (myContext as Activity).findViewById(R.id.nativeAd)
+                    nativeAdLayout.removeAllViews()
+                    nativeAdLayout.addView(nativeAdView)
+                }
+                .withAdListener(object : AdListener() {
+                    override fun onAdLoaded() {
+                        super.onAdLoaded()
+                        placeholder.visibility = View.GONE
+                        nativeAdLayout.visibility = View.VISIBLE
+                        shimmer_view_container.stopShimmer()
+                        shimmer_view_container.visibility = View.GONE
+                    }
+
+                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                        super.onAdFailedToLoad(loadAdError)
+                        placeholder.visibility = View.VISIBLE
+                        shimmer_view_container.stopShimmer()
+                        shimmer_view_container.visibility = View.GONE
                     }
                 })
                 .build()

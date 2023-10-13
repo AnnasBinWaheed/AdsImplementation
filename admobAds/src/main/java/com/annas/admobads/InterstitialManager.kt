@@ -130,7 +130,7 @@ class InterstitialManager {
 
         fun interactionLimit(limit:Int)
         {
-            requestLimit = limit
+            interactionLimit = limit
         }
 
         fun isAdNull():Boolean
