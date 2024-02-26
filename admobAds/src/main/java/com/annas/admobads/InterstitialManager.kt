@@ -27,7 +27,7 @@ class InterstitialManager {
         private var interactionLimit = 3
 
         private var requestCount = 0;
-        private var requestLimit = 3;
+        private var requestLimit = 15;
 
         private var addLoading = false;
         private var shouldLoadAgain = true;
@@ -118,7 +118,11 @@ class InterstitialManager {
                 withContext(Dispatchers.Main) {
                     interactionCount = 0
                     mInterstitialAd?.show(context as Activity)
-                    loadingDialog.cancel()
+                    try {
+                        loadingDialog.cancel()
+                    } catch (e: Exception) {
+                        Log.d("CRASH_REPORT", "showAd: $e")
+                    }
                 }
             }
         }
